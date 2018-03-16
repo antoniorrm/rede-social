@@ -1,0 +1,13 @@
+<div class="jumbotron container">
+  <div class="post-body"></div>
+  <h5 class="post-title">
+    <strong>{{post.nomePessoa}}</strong>
+  </h5>
+  <p class="post-text">
+    {{post.texto}}
+  </p>
+  <button type="submit" class="btn btn-default" aria-label="Left Align" (click)="eventoCurtir() ">Like
+    <span> {{post.qtdLikes}} </span>
+  </button>
+</div>
+

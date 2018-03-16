@@ -1,0 +1,3 @@
+<div>
+    <app-post *ngFor="let post  of posts" [post]="post" (recebeuLike)= "capturarEvento($event)" ></app-post>
+</div>
