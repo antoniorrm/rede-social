@@ -2,7 +2,6 @@ import { PostInputComponent } from './post-input/post-input.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { Routes, RouterModule } from '@angular/router'
 import { NgModule } from '@angular/core';
-import { PostEditComponent } from './post-edit/post-edit.component';
 
 
 
