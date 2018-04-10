@@ -8,16 +8,17 @@ import { Post } from '../model/post.model';
 })
 export class PostComponent implements OnInit {
 
-  @Input() post:Post;
+  @Input() post: Post;
 
-  @Output() recebeuLike = new EventEmitter<Post>();
+  @Output() recebeuLike = new EventEmitter();
+  @Output() removePost = new EventEmitter();
 
   eventoCurtir() {
-    this.post.qtdLikes++;
-    this.recebeuLike.emit(this.post);
+    this.recebeuLike.emit(this.post.id);
   }
-
-
+  eventoRemover() {
+    this.removePost.emit(this.post.id);
+  }
   constructor() { }
   ngOnInit() {
   }
