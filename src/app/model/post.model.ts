@@ -4,12 +4,12 @@ export class Post{
   texto:string;
   qtdLikes:number;
 
-  constructor(id:number, nome:string,texto:string) {
+  constructor(id:number, nome:string,texto:string, qtdLikes:number) {
 
     this.id = id;
     this.nomePessoa = nome;
     this.texto = texto;
-    this.qtdLikes = 0;
+    this.qtdLikes = qtdLikes;
 
   }
 

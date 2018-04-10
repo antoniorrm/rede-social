@@ -13,8 +13,9 @@
         id="inputSuccess1"
         placeholder="Digite seu nome"
         aria-describedby="helpBlock2"
-        [(ngModel)]="nome"
-        name="input-name"
+        [(ngModel)]="nomePessoa"
+        [(ngModel)]="upnomePessoa"
+        name="nomePessoa"
         >
   <!-- <span
       id="helpBlock2"
@@ -37,10 +38,10 @@
         id="inputSuccess2"
         placeholder="Texto do post"
         [(ngModel)]="texto"
-        name="input-name-real"
+        [(ngModel)]="uptexto"
+        name="texto"
         >
 </div>
-<button (click)="addPost($event);"
-    class="btn btn-default">Postar
-  </button>
+<button (click)="enviarPost(post);" class="btn btn-success"><span>Enviar</span></button>
+      <button (click)="cancelar();" class="btn btn-default"><span>Cancelar</span></button>
 </form>

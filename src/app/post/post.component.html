@@ -6,10 +6,13 @@
   <p class="post-text">
     {{post.texto}}
   </p>
-  <button type="submit" class="btn btn-default" aria-label="Left Align" (click)="eventoCurtir() ">Gostei
-    <span class="glyphicon glyphicon-heart">{{ post.qtdLikes }}</span>
+  <button type="submit" class="like btn btn-default" aria-label="Left Align" (click)="eventoCurtir() ">
+    <span class="glyphicon glyphicon-heart">  {{ post.qtdLikes }}</span>
   </button>
-  <button type="submit" class="btn btn-default" aria-label="Right Align" (click)="eventoRemover()">Remover
+  <button [routerLink]="['/editar',post.id]" type="submit" class="edit btn btn-default">
+    <span class="glyphicon glyphicon-pencil warning" aria-hidden="true"></span>
+</button>
+  <button type="submit" class="remove btn btn-default" aria-label="Right Align" (click)="eventoRemover()">
     <span class="glyphicon glyphicon-trash"></span>
   </button>
 </div>

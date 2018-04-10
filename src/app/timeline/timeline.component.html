@@ -1,6 +1,6 @@
 <app-post *ngFor="let post of posts"
   [post]="post"
-  (recebeuLike)="capturarEvento($event)"
-  (removePost)="capturarEventoRemove($event)">
+  (recebeuLike)="EventoLike($event)"
+  (removePost)="EventoRemove($event)">
 
 </app-post>

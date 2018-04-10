@@ -14,10 +14,10 @@ export class PostComponent implements OnInit {
   @Output() removePost = new EventEmitter();
 
   eventoCurtir() {
-    this.recebeuLike.emit(this.post.id);
+    this.recebeuLike.emit(this.post);
   }
   eventoRemover() {
-    this.removePost.emit(this.post.id);
+    this.removePost.emit(this.post);
   }
   constructor() { }
   ngOnInit() {

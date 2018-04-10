@@ -1,6 +1,7 @@
+import { Post } from './../model/post.model';
 import { PostService } from './../service/post.service';
 import { Component, OnInit } from '@angular/core';
-import { Post } from '../model/post.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-timeline',
@@ -9,24 +10,38 @@ import { Post } from '../model/post.model';
 })
 export class TimelineComponent implements OnInit {
 
-  posts: Post [];
+  posts: Post[];
 
-  constructor(private postService: PostService) { }
+  constructor(private postService: PostService, private router: Router) { }
 
   ngOnInit() {
-    this.posts = this.postService.getPosts();
+    this.getAllPost();
   }
 
-  capturarEvento(e){
-    this.postService.adicionarLike(e);
-  }
-  capturarEventoRemove(e){
-    this.postService.removePost(e);
+  getAllPost() {
+    this.postService.getPosts().subscribe(data => {
+      this.posts = data;
+      console.log(data);
+    },
+      error => console.log(error));
   }
 
-  addPost(post: Post){
-    console.log(post);
-    this.postService.addPost(post);
+  EventoLike(post) {
+    this.postService.postRecebeuLike(post).subscribe(data => {
+      console.log(data);
+      this.getAllPost();
+    },
+      error => console.log(error));
+  }
+  EventoRemove(post) {
+    this.postService.removePost(post).subscribe(data => {
+      console.log(data);
+      this.getAllPost();
+    },
+      error => {
+        console.log(error);
+        console.log("ID : " + post.id);
+      });
   }
 
 }

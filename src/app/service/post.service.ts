@@ -1,32 +1,65 @@
 import { Post } from './../model/post.model';
 import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
 
 @Injectable()
 export class PostService {
 
-  posts: Post [] = [new Post(0, 'Raimundo', 'Hoje tive várias aulas muito boas', 0),
-                        new Post(1, 'Pereira', 'Tô feliz pq a isabelly me chamou de pai', 0),
-                          new Post(2, 'Jordao', 'Mito das GALAXIAS', 0),
-                            new Post(3, 'Jackson', 'So coloca lenha nas brigas', 0)];
+  constructor(private http: Http) {
 
-  constructor() { }
+  }
 
-  adicionarLike(id: number){
-    this.getPost(id).qtdLikes++;
+  posts: Post[] = [];
+
+  // tslint:disable-next-line:member-ordering
+  url = 'http://rest.learncode.academy/api/antoniorrm/post';
+
+  getPosts() {
+      return this.http.get(this.url)
+          .map((res: Response) => {
+              this.posts = [];
+              for (let p of res.json()) {
+                  this.posts.push(new Post(p.id, p.nomePessoa, p.texto, p.qtdLikes));
+              }
+              return this.posts;
+          })
+          .catch((err: Response) =>
+              Observable.throw(err));
   }
-  addPost(post: Post){
-    this.posts.push(post);
+  addPost(post: Post) {
+      return this.http.post(this.url, post)
+          .map((res: Response) => res.json())
+          .catch((err: Response) => Observable.throw(err));
   }
-  getPosts(){
-    return this.posts;
+
+  postRecebeuLike(post: Post) {
+      post.qtdLikes++;
+      return this.http.put(this.url + '/' + post.id, post)
+          .map((res: Response) => res.text())
+          .catch((err: Response) => Observable.throw(err));
   }
-  getPost(id: number): Post{
-    const post: Post = this.posts.find(x => x.id === id);
-    return post;
+
+  editarPost(post: Post) {
+      return this.http.put(this.url + '/' + post.id, post)
+          .map((res: Response) => res.text())
+          .catch((err: Response) => Observable.throw(err));
   }
-  removePost(id: number){
-    let index = this.posts.indexOf(this.getPost(id));
-     this.posts.splice(index, 1);
+
+  getPost(id: number) {
+      return this.http.get(this.url + '/' + id)
+          .map((res: Response) => res.json())
+          .catch((err: Response) => Observable.throw(err+'ERRO SERVICE'));
   }
+
+  removePost(post: Post) {
+      return this.http.delete(this.url + '/' + post.id)
+          .map((res: Response) => res.text())
+          .catch((err: Response) => Observable.throw(err + 'Erro ao deletar'));
+  }
+
 
 }
